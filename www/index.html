@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#090A0D" />
+  <title>Nosso Tempo</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">NOSSO TEMPO</p>
+        <h1>Nosso Tempo <span aria-hidden="true">♡</span></h1>
+      </div>
+      <button id="settingsBtn" class="circle-btn" type="button" aria-label="Abrir personalização">✦</button>
+    </header>
+
+    <section class="hero-card">
+      <div class="hero-top">
+        <div>
+          <span class="tiny-label">JUNTOS HÁ</span>
+          <div class="hero-days"><span id="daysBig">00</span><small>dias</small></div>
+        </div>
+        <div id="wallpaperStatus" class="status-pill">Verificando wallpaper…</div>
+      </div>
+
+      <div class="counter-grid" aria-live="polite">
+        <div class="counter-unit"><strong id="days">00</strong><span>DIAS</span></div>
+        <div class="counter-unit"><strong id="hours">00</strong><span>HORAS</span></div>
+        <div class="counter-unit"><strong id="minutes">00</strong><span>MIN</span></div>
+        <div class="counter-unit"><strong id="seconds">00</strong><span>SEG</span></div>
+      </div>
+
+      <p id="sinceLabel" class="since">Desde 12 de setembro de 2026 • 16:43</p>
+    </section>
+
+    <section class="milestone-card">
+      <div class="milestone-copy">
+        <p class="eyebrow">PRÓXIMO MARCO</p>
+        <h2 id="milestoneTitle">10 dias juntos</h2>
+        <p id="milestoneRemaining">Calculando…</p>
+      </div>
+      <div id="progressRing" class="progress-ring">
+        <div><strong id="progressValue">0</strong><span>%</span></div>
+      </div>
+    </section>
+
+    <section class="quick-actions">
+      <button id="applyWallpaperBtn" class="action primary" type="button">
+        <span class="action-icon">♡</span>
+        <span><strong>Aplicar na tela de bloqueio</strong><small>Abre o seletor oficial do Android</small></span>
+      </button>
+
+      <button id="editStartBtn" class="action" type="button">
+        <span class="action-icon">⌁</span>
+        <span><strong>Alterar data de início</strong><small id="startSummary">12/09/2026 • 16:43</small></span>
+      </button>
+
+      <button id="pickImageBtn" class="action" type="button">
+        <span class="action-icon">▧</span>
+        <span><strong>Imagem de fundo</strong><small id="bgSummary">Usando fundo padrão</small></span>
+      </button>
+
+      <input id="bgImageInput" type="file" accept="image/*" hidden />
+
+      <button id="backupBtn" class="action" type="button">
+        <span class="action-icon">{ }</span>
+        <span><strong>Backup das configurações</strong><small>Exportar ou importar JSON</small></span>
+      </button>
+    </section>
+
+    <section class="preview-section">
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">PRÉVIA</p>
+          <h2>Visual discreto na tela de bloqueio</h2>
+        </div>
+        <span id="themeName" class="mini-chip">Vidro</span>
+      </div>
+
+      <div id="phonePreview" class="phone-preview" data-theme="discreet">
+        <div class="preview-glow"></div>
+        <div class="preview-system">
+          <p id="previewDate">sábado, 12 de setembro</p>
+          <strong id="previewClock">09:41</strong>
+        </div>
+
+        <div id="previewCounterCard" class="preview-counter">
+          <div class="preview-title">
+            <div>
+              <span>NOSSO TEMPO</span>
+              <h3>Juntos há <b id="previewHeart">♡</b></h3>
+            </div>
+            <i></i>
+          </div>
+
+          <div class="preview-grid">
+            <div><strong id="pDays">00</strong><span>DIAS</span></div>
+            <div><strong id="pHours">00</strong><span>HORAS</span></div>
+            <div><strong id="pMinutes">00</strong><span>MIN</span></div>
+            <div><strong id="pSeconds">00</strong><span>SEG</span></div>
+          </div>
+
+          <p id="previewSince">Desde 12 de setembro de 2026 • 16:43</p>
+          <small id="previewMilestone">Próximo marco: 10 dias</small>
+        </div>
+
+        <div class="preview-lock">⌄</div>
+      </div>
+
+      <p class="preview-note">A posição real pode variar um pouco conforme Samsung, Motorola, Xiaomi e outras interfaces Android.</p>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog" class="sheet">
+    <form method="dialog" id="settingsForm" class="sheet-inner">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <div>
+          <p class="eyebrow">PERSONALIZAÇÃO</p>
+          <h2>Deixe com a sua cara</h2>
+        </div>
+        <button class="circle-btn small" value="cancel" aria-label="Fechar">×</button>
+      </div>
+
+      <section class="setting-block">
+        <h3>Estilo</h3>
+        <div id="themePicker" class="theme-picker">
+          <button type="button" class="theme-option selected" data-theme="discreet"><i></i><span>Discreto</span></button>
+          <button type="button" class="theme-option" data-theme="glass"><i></i><span>Vidro</span></button>
+          <button type="button" class="theme-option" data-theme="oled"><i></i><span>OLED</span></button>
+          <button type="button" class="theme-option" data-theme="aurora"><i></i><span>Aurora</span></button>
+          <button type="button" class="theme-option" data-theme="material"><i></i><span>Material</span></button>
+          <button type="button" class="theme-option" data-theme="minimal"><i></i><span>Minimal</span></button>
+        </div>
+
+        <div class="color-editor">
+          <div class="color-editor-title">
+            <span><strong>Cor de destaque</strong><small>Escolha no seletor ou digite o código HEX</small></span>
+          </div>
+          <div class="color-controls">
+            <input id="accentInput" type="color" value="#FFFFFF" aria-label="Escolher cor" />
+            <div class="hex-field">
+              <span>#</span>
+              <input id="accentHexInput" type="text" value="FFFFFF" maxlength="6"
+                     inputmode="text" autocomplete="off" spellcheck="false"
+                     aria-label="Código hexadecimal da cor" />
+            </div>
+          </div>
+          <p id="hexHint" class="field-hint">Ex.: FFFFFF, FF6B9D, 7C5CFF</p>
+        </div>
+      </section>
+
+      <section class="setting-block">
+        <h3>Imagem de fundo</h3>
+
+        <div class="background-controls">
+          <button id="chooseBgSettingsBtn" class="mini-action" type="button">
+            <span>Escolher imagem</span>
+            <small>Galeria do celular</small>
+          </button>
+
+          <button id="removeBgBtn" class="mini-action danger" type="button">
+            <span>Remover imagem</span>
+            <small>Voltar ao fundo do tema</small>
+          </button>
+        </div>
+
+        <label class="range-row">
+          <span><strong>Escurecer imagem</strong><small id="dimValue">38%</small></span>
+          <input id="dimInput" type="range" min="0" max="80" value="38" />
+        </label>
+
+        <p class="field-hint">A foto é salva dentro do app e usada pelo Live Wallpaper. Não é enviada para nenhum servidor.</p>
+      </section>
+
+      <section class="setting-block">
+        <h3>Cartão do contador</h3>
+
+        <label class="range-row">
+          <span><strong>Posição vertical</strong><small id="positionValue">44%</small></span>
+          <input id="positionInput" type="range" min="32" max="68" value="44" />
+        </label>
+
+        <label class="range-row">
+          <span><strong>Tamanho</strong><small id="scaleValue">100%</small></span>
+          <input id="scaleInput" type="range" min="82" max="118" value="100" />
+        </label>
+
+        <label class="range-row">
+          <span><strong>Transparência</strong><small id="alphaValue">22%</small></span>
+          <input id="alphaInput" type="range" min="8" max="48" value="22" />
+        </label>
+      </section>
+
+      <section class="setting-block">
+        <h3>Informações</h3>
+
+        <label class="toggle-row">
+          <span><strong>Mostrar segundos</strong><small>Atualização a cada segundo</small></span>
+          <input id="showSecondsInput" type="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <span><strong>Mostrar “Desde…”</strong><small>Data e horário de início</small></span>
+          <input id="showSinceInput" type="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <span><strong>Mostrar próximo marco</strong><small>Ex.: 100 dias, 1 ano</small></span>
+          <input id="showMilestoneInput" type="checkbox" checked />
+        </label>
+
+        <label class="select-row">
+          <span><strong>Coração</strong><small>Detalhe ao lado do título</small></span>
+          <select id="heartInput">
+            <option value="outline">♡</option>
+            <option value="solid">♥</option>
+            <option value="spark">✦</option>
+            <option value="none">Sem símbolo</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="setting-block">
+        <h3>Privacidade e avisos</h3>
+
+        <label class="toggle-row">
+          <span><strong>Proteger configurações</strong><small>Solicita biometria/credencial ao editar</small></span>
+          <input id="protectInput" type="checkbox" />
+        </label>
+
+        <label class="toggle-row">
+          <span><strong>Avisar marcos importantes</strong><small>Notificação quando chegar ao próximo marco</small></span>
+          <input id="notificationsInput" type="checkbox" />
+        </label>
+      </section>
+
+      <div class="sheet-actions">
+        <button id="resetStyleBtn" class="secondary-btn" type="button">Restaurar visual</button>
+        <button class="save-btn" type="submit">Salvar alterações</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dateDialog" class="sheet compact">
+    <form method="dialog" id="dateForm" class="sheet-inner">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <div>
+          <p class="eyebrow">INÍCIO</p>
+          <h2>Quando começou?</h2>
+        </div>
+        <button class="circle-btn small" value="cancel" aria-label="Fechar">×</button>
+      </div>
+
+      <label class="field">
+        <span>Data</span>
+        <input id="startDateInput" type="date" required />
+      </label>
+
+      <label class="field">
+        <span>Horário</span>
+        <input id="startTimeInput" type="time" step="60" required />
+      </label>
+
+      <button class="save-btn full" type="submit">Salvar data</button>
+    </form>
+  </dialog>
+
+  <dialog id="backupDialog" class="sheet compact">
+    <div class="sheet-inner">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <div>
+          <p class="eyebrow">BACKUP</p>
+          <h2>Configurações em JSON</h2>
+        </div>
+        <button id="closeBackupBtn" class="circle-btn small" type="button" aria-label="Fechar">×</button>
+      </div>
+
+      <textarea id="backupText" class="backup-text" spellcheck="false"></textarea>
+
+      <div class="backup-actions">
+        <button id="copyBackupBtn" class="secondary-btn" type="button">Copiar JSON</button>
+        <button id="importBackupBtn" class="save-btn" type="button">Importar JSON</button>
+      </div>
+      <p id="backupMessage" class="helper"></p>
+    </div>
+  </dialog>
+
+  <dialog id="onboardingDialog" class="onboarding">
+    <form method="dialog" id="onboardingForm" class="onboarding-inner">
+      <div class="onboarding-heart">♡</div>
+      <p class="eyebrow">BEM-VINDO AO NOSSO TEMPO</p>
+      <h2>Seu contador, agora na tela de bloqueio.</h2>
+      <p>Confirme quando começou. Depois você poderá personalizar tudo e aplicar como papel de parede animado.</p>
+
+      <div class="onboarding-fields">
+        <label class="field"><span>Data</span><input id="onboardDate" type="date" required /></label>
+        <label class="field"><span>Horário</span><input id="onboardTime" type="time" required /></label>
+      </div>
+
+      <button class="save-btn full" type="submit">Começar</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

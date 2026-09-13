@@ -1,0 +1,9 @@
+{
+  "appId": "com.gustavo.nossotempo",
+  "appName": "Nosso Tempo",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#090A0D",
+    "allowMixedContent": false
+  }
+}
